@@ -1,0 +1,12 @@
+[
+    {
+        "id": "hd-live",
+        "name": "HD Live",
+        "file": "hd.json"
+    },
+    {
+        "id": "playlist-2",
+        "name": "Setlist Rock (Vide)",
+        "file": "rock.json"
+    }
+]

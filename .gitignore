@@ -1,0 +1,4 @@
+playlists/HDLive/
+.DS_Store
+*.pyc
+__pycache__/

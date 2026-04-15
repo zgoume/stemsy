@@ -1,0 +1,23 @@
+{
+    "id": "playlist-2",
+    "name": "Setlist Rock",
+    "songs": [
+        {
+            "id": "song-rock-1",
+            "title": "Morceau Rock 1",
+            "artist": "Stemsy Band",
+            "tracks": [
+                {
+                    "id": "t1",
+                    "name": "Drums",
+                    "url": "https://actions.google.com/sounds/v1/alarms/bugle_tune.ogg"
+                },
+                {
+                    "id": "t2",
+                    "name": "Bass",
+                    "url": "https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg"
+                }
+            ]
+        }
+    ]
+}

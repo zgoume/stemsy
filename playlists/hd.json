@@ -1,0 +1,524 @@
+{
+    "id": "hd-live",
+    "name": "HD Live Setlist",
+    "songs": [
+        {
+            "id": "01-intro",
+            "title": "Intro",
+            "artist": "HD Live",
+            "tracks": [
+                {
+                    "id": "bass",
+                    "name": "Bass",
+                    "url": "playlists/HDLive/01.Intro/01.Intro.Bass.wav"
+                },
+                {
+                    "id": "click",
+                    "name": "Click",
+                    "url": "playlists/HDLive/01.Intro/01.Intro.Click.wav"
+                },
+                {
+                    "id": "cues",
+                    "name": "Cues",
+                    "url": "playlists/HDLive/01.Intro/01.Intro.Cues.wav"
+                },
+                {
+                    "id": "drums",
+                    "name": "Drums",
+                    "url": "playlists/HDLive/01.Intro/01.Intro.DRUMS.wav"
+                },
+                {
+                    "id": "samples",
+                    "name": "Samples",
+                    "url": "playlists/HDLive/01.Intro/01.Intro.Samples.wav"
+                },
+                {
+                    "id": "vox",
+                    "name": "VOX",
+                    "url": "playlists/HDLive/01.Intro/01.Intro.VOX.wav"
+                }
+            ]
+        },
+        {
+            "id": "02-vanity macabre",
+            "title": "Vanity Macabre",
+            "artist": "HD Live",
+            "tracks": [
+                {
+                    "id": "bass",
+                    "name": "Bass",
+                    "url": "playlists/HDLive/02.Vanity%20Macabre/02.Vanity%20Macabre.Bass.wav"
+                },
+                {
+                    "id": "click",
+                    "name": "Click",
+                    "url": "playlists/HDLive/02.Vanity%20Macabre/02.Vanity%20Macabre.Click.wav"
+                },
+                {
+                    "id": "cues",
+                    "name": "Cues",
+                    "url": "playlists/HDLive/02.Vanity%20Macabre/02.Vanity%20Macabre.Cues.wav"
+                },
+                {
+                    "id": "drums",
+                    "name": "Drums",
+                    "url": "playlists/HDLive/02.Vanity%20Macabre/02.Vanity%20Macabre.DRUMS.wav"
+                },
+                {
+                    "id": "samples",
+                    "name": "Samples",
+                    "url": "playlists/HDLive/02.Vanity%20Macabre/02.Vanity%20Macabre.Samples.wav"
+                },
+                {
+                    "id": "vox",
+                    "name": "VOX",
+                    "url": "playlists/HDLive/02.Vanity%20Macabre/02.Vanity%20Macabre.VOX.wav"
+                }
+            ]
+        },
+        {
+            "id": "03-life thief",
+            "title": "Life Thief",
+            "artist": "HD Live",
+            "tracks": [
+                {
+                    "id": "bass",
+                    "name": "Bass",
+                    "url": "playlists/HDLive/03.Life%20Thief/03.Life%20Thief.Bass.wav"
+                },
+                {
+                    "id": "click",
+                    "name": "Click",
+                    "url": "playlists/HDLive/03.Life%20Thief/03.Life%20Thief.Click.wav"
+                },
+                {
+                    "id": "cues",
+                    "name": "Cues",
+                    "url": "playlists/HDLive/03.Life%20Thief/03.Life%20Thief.Cues.wav"
+                },
+                {
+                    "id": "drums",
+                    "name": "Drums",
+                    "url": "playlists/HDLive/03.Life%20Thief/03.Life%20Thief.DRUMS.wav"
+                },
+                {
+                    "id": "samples",
+                    "name": "Samples",
+                    "url": "playlists/HDLive/03.Life%20Thief/03.Life%20Thief.Samples.wav"
+                },
+                {
+                    "id": "vox",
+                    "name": "VOX",
+                    "url": "playlists/HDLive/03.Life%20Thief/03.Life%20Thief.VOX.wav"
+                }
+            ]
+        },
+        {
+            "id": "04-escape plan",
+            "title": "Escape Plan",
+            "artist": "HD Live",
+            "tracks": [
+                {
+                    "id": "bass",
+                    "name": "Bass",
+                    "url": "playlists/HDLive/04.Escape%20Plan/04.Escape%20Plan.Bass.wav"
+                },
+                {
+                    "id": "click",
+                    "name": "Click",
+                    "url": "playlists/HDLive/04.Escape%20Plan/04.Escape%20Plan.Click.wav"
+                },
+                {
+                    "id": "cues",
+                    "name": "Cues",
+                    "url": "playlists/HDLive/04.Escape%20Plan/04.Escape%20Plan.Cues.wav"
+                },
+                {
+                    "id": "drums",
+                    "name": "Drums",
+                    "url": "playlists/HDLive/04.Escape%20Plan/04.Escape%20Plan.DRUMS.wav"
+                },
+                {
+                    "id": "samples",
+                    "name": "Samples",
+                    "url": "playlists/HDLive/04.Escape%20Plan/04.Escape%20Plan.Samples.wav"
+                },
+                {
+                    "id": "vox",
+                    "name": "VOX",
+                    "url": "playlists/HDLive/04.Escape%20Plan/04.Escape%20Plan.VOX.wav"
+                }
+            ]
+        },
+        {
+            "id": "05-face in the dirt",
+            "title": "Face In The Dirt",
+            "artist": "HD Live",
+            "tracks": [
+                {
+                    "id": "bass",
+                    "name": "Bass",
+                    "url": "playlists/HDLive/05.Face%20In%20The%20Dirt/05.Face%20In%20The%20Dirt.Bass.wav"
+                },
+                {
+                    "id": "click",
+                    "name": "Click",
+                    "url": "playlists/HDLive/05.Face%20In%20The%20Dirt/05.Face%20In%20The%20Dirt.Click.wav"
+                },
+                {
+                    "id": "cues",
+                    "name": "Cues",
+                    "url": "playlists/HDLive/05.Face%20In%20The%20Dirt/05.Face%20In%20The%20Dirt.Cues.wav"
+                },
+                {
+                    "id": "drums",
+                    "name": "Drums",
+                    "url": "playlists/HDLive/05.Face%20In%20The%20Dirt/05.Face%20In%20The%20Dirt.DRUMS.wav"
+                },
+                {
+                    "id": "samples",
+                    "name": "Samples",
+                    "url": "playlists/HDLive/05.Face%20In%20The%20Dirt/05.Face%20In%20The%20Dirt.Samples.wav"
+                },
+                {
+                    "id": "vox",
+                    "name": "VOX",
+                    "url": "playlists/HDLive/05.Face%20In%20The%20Dirt/05.Face%20In%20The%20Dirt.VOX.wav"
+                }
+            ]
+        },
+        {
+            "id": "06-wake up",
+            "title": "Wake Up",
+            "artist": "HD Live",
+            "tracks": [
+                {
+                    "id": "bass",
+                    "name": "Bass",
+                    "url": "playlists/HDLive/06.Wake%20Up/06.Wake%20Up.Bass.wav"
+                },
+                {
+                    "id": "click",
+                    "name": "Click",
+                    "url": "playlists/HDLive/06.Wake%20Up/06.Wake%20Up.Click.wav"
+                },
+                {
+                    "id": "cues",
+                    "name": "Cues",
+                    "url": "playlists/HDLive/06.Wake%20Up/06.Wake%20Up.Cues.wav"
+                },
+                {
+                    "id": "drums",
+                    "name": "Drums",
+                    "url": "playlists/HDLive/06.Wake%20Up/06.Wake%20Up.DRUMS.wav"
+                },
+                {
+                    "id": "samples",
+                    "name": "Samples",
+                    "url": "playlists/HDLive/06.Wake%20Up/06.Wake%20Up.Samples.wav"
+                },
+                {
+                    "id": "vox",
+                    "name": "VOX",
+                    "url": "playlists/HDLive/06.Wake%20Up/06.Wake%20Up.VOX.wav"
+                }
+            ]
+        },
+        {
+            "id": "07-the ways of men",
+            "title": "The Ways Of Men",
+            "artist": "HD Live",
+            "tracks": [
+                {
+                    "id": "bass",
+                    "name": "Bass",
+                    "url": "playlists/HDLive/07.The%20Ways%20Of%20Men/07.The%20Ways%20Of%20Men.Bass.wav"
+                },
+                {
+                    "id": "click",
+                    "name": "Click",
+                    "url": "playlists/HDLive/07.The%20Ways%20Of%20Men/07.The%20Ways%20Of%20Men.Click.wav"
+                },
+                {
+                    "id": "cues",
+                    "name": "Cues",
+                    "url": "playlists/HDLive/07.The%20Ways%20Of%20Men/07.The%20Ways%20Of%20Men.Cues.wav"
+                },
+                {
+                    "id": "drums",
+                    "name": "Drums",
+                    "url": "playlists/HDLive/07.The%20Ways%20Of%20Men/07.The%20Ways%20Of%20Men.DRUMS.wav"
+                },
+                {
+                    "id": "samples",
+                    "name": "Samples",
+                    "url": "playlists/HDLive/07.The%20Ways%20Of%20Men/07.The%20Ways%20Of%20Men.Samples.wav"
+                },
+                {
+                    "id": "vox",
+                    "name": "VOX",
+                    "url": "playlists/HDLive/07.The%20Ways%20Of%20Men/07.The%20Ways%20Of%20Men.VOX.wav"
+                }
+            ]
+        },
+        {
+            "id": "08-who am i",
+            "title": "Who Am I",
+            "artist": "HD Live",
+            "tracks": [
+                {
+                    "id": "bass",
+                    "name": "Bass",
+                    "url": "playlists/HDLive/08.Who%20Am%20I/08.Who%20Am%20I.Bass.wav"
+                },
+                {
+                    "id": "click",
+                    "name": "Click",
+                    "url": "playlists/HDLive/08.Who%20Am%20I/08.Who%20Am%20I.Click.wav"
+                },
+                {
+                    "id": "cues",
+                    "name": "Cues",
+                    "url": "playlists/HDLive/08.Who%20Am%20I/08.Who%20Am%20I.Cues.wav"
+                },
+                {
+                    "id": "drums",
+                    "name": "Drums",
+                    "url": "playlists/HDLive/08.Who%20Am%20I/08.Who%20Am%20I.DRUMS.wav"
+                },
+                {
+                    "id": "samples",
+                    "name": "Samples",
+                    "url": "playlists/HDLive/08.Who%20Am%20I/08.Who%20Am%20I.Samples.wav"
+                },
+                {
+                    "id": "vox",
+                    "name": "VOX",
+                    "url": "playlists/HDLive/08.Who%20Am%20I/08.Who%20Am%20I.VOX.wav"
+                }
+            ]
+        },
+        {
+            "id": "09-lost highway",
+            "title": "Lost Highway",
+            "artist": "HD Live",
+            "tracks": [
+                {
+                    "id": "bass",
+                    "name": "Bass",
+                    "url": "playlists/HDLive/09.Lost%20Highway/09.Lost%20Highway.Bass.wav"
+                },
+                {
+                    "id": "click",
+                    "name": "Click",
+                    "url": "playlists/HDLive/09.Lost%20Highway/09.Lost%20Highway.Click.wav"
+                },
+                {
+                    "id": "cues",
+                    "name": "Cues",
+                    "url": "playlists/HDLive/09.Lost%20Highway/09.Lost%20Highway.Cues.wav"
+                },
+                {
+                    "id": "drums",
+                    "name": "Drums",
+                    "url": "playlists/HDLive/09.Lost%20Highway/09.Lost%20Highway.DRUMS.wav"
+                },
+                {
+                    "id": "samples",
+                    "name": "Samples",
+                    "url": "playlists/HDLive/09.Lost%20Highway/09.Lost%20Highway.Samples.wav"
+                },
+                {
+                    "id": "vox",
+                    "name": "VOX",
+                    "url": "playlists/HDLive/09.Lost%20Highway/09.Lost%20Highway.VOX.wav"
+                }
+            ]
+        },
+        {
+            "id": "10-la belle epoque",
+            "title": "La Belle Epoque",
+            "artist": "HD Live",
+            "tracks": [
+                {
+                    "id": "bass",
+                    "name": "Bass",
+                    "url": "playlists/HDLive/10.La%20Belle%20Epoque/10.La%20Belle%20Epoque.Bass.wav"
+                },
+                {
+                    "id": "click",
+                    "name": "Click",
+                    "url": "playlists/HDLive/10.La%20Belle%20Epoque/10.La%20Belle%20Epoque.Click.wav"
+                },
+                {
+                    "id": "cues",
+                    "name": "Cues",
+                    "url": "playlists/HDLive/10.La%20Belle%20Epoque/10.La%20Belle%20Epoque.Cues.wav"
+                },
+                {
+                    "id": "drums",
+                    "name": "Drums",
+                    "url": "playlists/HDLive/10.La%20Belle%20Epoque/10.La%20Belle%20Epoque.DRUMS.wav"
+                },
+                {
+                    "id": "samples",
+                    "name": "Samples",
+                    "url": "playlists/HDLive/10.La%20Belle%20Epoque/10.La%20Belle%20Epoque.Samples.wav"
+                },
+                {
+                    "id": "vox",
+                    "name": "VOX",
+                    "url": "playlists/HDLive/10.La%20Belle%20Epoque/10.La%20Belle%20Epoque.VOX.wav"
+                }
+            ]
+        },
+        {
+            "id": "11-shades of black",
+            "title": "Shades Of Black",
+            "artist": "HD Live",
+            "tracks": [
+                {
+                    "id": "bass",
+                    "name": "Bass",
+                    "url": "playlists/HDLive/11.Shades%20Of%20Black/11.Shades%20Of%20Black.Bass.wav"
+                },
+                {
+                    "id": "click",
+                    "name": "Click",
+                    "url": "playlists/HDLive/11.Shades%20Of%20Black/11.Shades%20Of%20Black.Click.wav"
+                },
+                {
+                    "id": "cues",
+                    "name": "Cues",
+                    "url": "playlists/HDLive/11.Shades%20Of%20Black/11.Shades%20Of%20Black.Cues.wav"
+                },
+                {
+                    "id": "drums",
+                    "name": "Drums",
+                    "url": "playlists/HDLive/11.Shades%20Of%20Black/11.Shades%20Of%20Black.DRUMS.wav"
+                },
+                {
+                    "id": "samples",
+                    "name": "Samples",
+                    "url": "playlists/HDLive/11.Shades%20Of%20Black/11.Shades%20Of%20Black.Samples.wav"
+                },
+                {
+                    "id": "vox",
+                    "name": "VOX",
+                    "url": "playlists/HDLive/11.Shades%20Of%20Black/11.Shades%20Of%20Black.VOX.wav"
+                }
+            ]
+        },
+        {
+            "id": "12-fade away",
+            "title": "Fade Away",
+            "artist": "HD Live",
+            "tracks": [
+                {
+                    "id": "bass",
+                    "name": "Bass",
+                    "url": "playlists/HDLive/12.Fade%20Away/12.Fade%20Away.Bass.wav"
+                },
+                {
+                    "id": "click",
+                    "name": "Click",
+                    "url": "playlists/HDLive/12.Fade%20Away/12.Fade%20Away.Click.wav"
+                },
+                {
+                    "id": "cues",
+                    "name": "Cues",
+                    "url": "playlists/HDLive/12.Fade%20Away/12.Fade%20Away.Cues.wav"
+                },
+                {
+                    "id": "drums",
+                    "name": "Drums",
+                    "url": "playlists/HDLive/12.Fade%20Away/12.Fade%20Away.DRUMS.wav"
+                },
+                {
+                    "id": "samples",
+                    "name": "Samples",
+                    "url": "playlists/HDLive/12.Fade%20Away/12.Fade%20Away.Samples.wav"
+                },
+                {
+                    "id": "vox",
+                    "name": "VOX",
+                    "url": "playlists/HDLive/12.Fade%20Away/12.Fade%20Away.VOX.wav"
+                }
+            ]
+        },
+        {
+            "id": "13-five regrets",
+            "title": "Five Regrets",
+            "artist": "HD Live",
+            "tracks": [
+                {
+                    "id": "bass",
+                    "name": "Bass",
+                    "url": "playlists/HDLive/13.Five%20Regrets/13.Five%20Regrets.Bass.wav"
+                },
+                {
+                    "id": "click",
+                    "name": "Click",
+                    "url": "playlists/HDLive/13.Five%20Regrets/13.Five%20Regrets.Click.wav"
+                },
+                {
+                    "id": "cues",
+                    "name": "Cues",
+                    "url": "playlists/HDLive/13.Five%20Regrets/13.Five%20Regrets.Cues.wav"
+                },
+                {
+                    "id": "drums",
+                    "name": "Drums",
+                    "url": "playlists/HDLive/13.Five%20Regrets/13.Five%20Regrets.DRUMS.wav"
+                },
+                {
+                    "id": "samples",
+                    "name": "Samples",
+                    "url": "playlists/HDLive/13.Five%20Regrets/13.Five%20Regrets.Samples.wav"
+                },
+                {
+                    "id": "vox",
+                    "name": "VOX",
+                    "url": "playlists/HDLive/13.Five%20Regrets/13.Five%20Regrets.VOX.wav"
+                }
+            ]
+        },
+        {
+            "id": "14-15-blackwood hunters",
+            "title": "Blackwood Hunters",
+            "artist": "HD Live",
+            "tracks": [
+                {
+                    "id": "bass",
+                    "name": "Bass",
+                    "url": "playlists/HDLive/14-15.Blackwood%20Hunters/14-15.Blackwood%20Hunters.Bass.wav"
+                },
+                {
+                    "id": "click",
+                    "name": "Click",
+                    "url": "playlists/HDLive/14-15.Blackwood%20Hunters/14-15.Blackwood%20Hunters.Click.wav"
+                },
+                {
+                    "id": "cues",
+                    "name": "Cues",
+                    "url": "playlists/HDLive/14-15.Blackwood%20Hunters/14-15.Blackwood%20Hunters.Cues.wav"
+                },
+                {
+                    "id": "drums",
+                    "name": "Drums",
+                    "url": "playlists/HDLive/14-15.Blackwood%20Hunters/14-15.Blackwood%20Hunters.DRUMS.wav"
+                },
+                {
+                    "id": "samples",
+                    "name": "Samples",
+                    "url": "playlists/HDLive/14-15.Blackwood%20Hunters/14-15.Blackwood%20Hunters.Samples.wav"
+                },
+                {
+                    "id": "vox",
+                    "name": "VOX",
+                    "url": "playlists/HDLive/14-15.Blackwood%20Hunters/14-15.Blackwood%20Hunters.VOX.wav"
+                }
+            ]
+        }
+    ]
+}
