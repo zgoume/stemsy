@@ -465,8 +465,54 @@ const app = createApp({
             }
         };
 
+        let audioUnlocked = false;
+        const unlockAudio = () => {
+            if (audioUnlocked) return;
+            audioUnlocked = true;
+            
+            // Bypass iOS Silent Mode hardware switch by playing a dummy audio tag
+            const audio = document.createElement('audio');
+            audio.src = "data:audio/wav;base64,UklGRiQAAGFXQVZFZm10IBAAAAABAAEAwF0AAIC7AAACABAAZGF0YQAAAAA=";
+            audio.playsInline = true;
+            audio.volume = 0;
+            
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(e => console.warn("Audio unlock prevented by browser", e));
+            }
+        };
+
+        let wakeLock = null;
+        const requestWakeLock = async () => {
+            if ('wakeLock' in navigator) {
+                try {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                    console.log('Wake Lock activé : écran maintenu allumé');
+                } catch (err) {
+                    console.warn(`Wake Lock erreur: ${err.message}`);
+                }
+            }
+        };
+
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'visible') {
+                requestWakeLock();
+            }
+        };
+
         onMounted(() => {
             loadIndex();
+
+            const initInteractions = () => {
+                unlockAudio();
+                requestWakeLock();
+                document.removeEventListener('click', initInteractions);
+                document.removeEventListener('touchstart', initInteractions);
+            };
+
+            document.addEventListener('click', initInteractions);
+            document.addEventListener('touchstart', initInteractions);
+            document.addEventListener('visibilitychange', handleVisibilityChange);
         });
 
         const currentSong = computed(() => {
