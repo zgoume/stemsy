@@ -482,21 +482,20 @@ const app = createApp({
             }
         };
 
-        let wakeLock = null;
-        const requestWakeLock = async () => {
-            if ('wakeLock' in navigator) {
-                try {
-                    wakeLock = await navigator.wakeLock.request('screen');
-                    console.log('Wake Lock activé : écran maintenu allumé');
-                } catch (err) {
-                    console.warn(`Wake Lock erreur: ${err.message}`);
-                }
+        const noSleep = new window.NoSleep();
+        let isNoSleepEnabled = false;
+
+        const requestWakeLock = () => {
+            if (!isNoSleepEnabled) {
+                noSleep.enable();
+                isNoSleepEnabled = true;
+                console.log('NoSleep activé : écran maintenu allumé');
             }
         };
 
         const handleVisibilityChange = () => {
-            if (document.visibilityState === 'visible') {
-                requestWakeLock();
+            if (document.visibilityState === 'visible' && isNoSleepEnabled) {
+                noSleep.enable();
             }
         };
 
