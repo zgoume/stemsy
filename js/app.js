@@ -557,25 +557,12 @@ const app = createApp({
     },
     template: `
         <div class="flex-1 flex flex-col h-full bg-daw-bg">
-            <header class="bg-daw-panel border-b border-daw-border p-3 shadow-md z-10 flex flex-col sm:flex-row justify-between items-center gap-4">
-                <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-start">
-                    <div class="flex items-center gap-2 md:gap-4">
-                        <button @click="openMenu('main')" class="p-2 text-gray-400 hover:text-white rounded hover:bg-gray-700 transition-colors">
-                            <IconMenu />
-                        </button>
-                        <img src="icons/logo.svg" alt="Stemsy Logo" class="h-8 md:h-10 object-contain" />
-                    </div>
-                </div>
-                
-                <div class="flex flex-col items-center sm:items-end w-full sm:w-auto mt-2 sm:mt-0">
-                    <button @click="openMenu('songs')" class="text-daw-accent hover:text-white font-bold text-lg md:text-xl truncate max-w-[250px] sm:max-w-xs transition-colors flex items-center gap-2">
-                        <span v-if="currentSong">{{ currentSong.title }}</span>
-                        <span v-else>Sélectionner un morceau</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            <header class="bg-daw-panel border-b border-daw-border p-3 shadow-md z-10 flex justify-between items-center">
+                <div class="flex items-center gap-2 md:gap-4">
+                    <button @click="openMenu('main')" class="p-2 text-gray-400 hover:text-white rounded hover:bg-gray-700 transition-colors">
+                        <IconMenu />
                     </button>
-                    <div class="text-xs text-gray-500 mt-1" v-if="currentSetlist">
-                        Piste {{ currentSongIndex + 1 }} sur {{ currentSetlist.songs.length }}
-                    </div>
+                    <img src="icons/logo.svg" alt="Stemsy Logo" class="h-8 md:h-10 object-contain" />
                 </div>
             </header>
 
@@ -635,13 +622,21 @@ const app = createApp({
 
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 px-2 md:px-4">
                     
-                    <div class="flex-1 text-center md:text-left truncate w-full flex flex-col justify-center">
-                        <h2 class="text-2xl md:text-3xl font-bold text-gray-100 truncate" v-if="currentSong">
-                            {{ currentSong.title }}
-                        </h2>
-                        <div class="text-sm text-gray-400 truncate mt-1" v-if="currentSong && currentSong.artist">
-                            {{ currentSong.artist }}
-                        </div>
+                    <div class="flex-1 truncate w-full flex flex-col justify-center items-center md:items-start">
+                        <button @click="openMenu('songs')" class="flex flex-col items-center md:items-start text-left max-w-full group focus:outline-none rounded">
+                            <div class="flex items-center justify-center md:justify-start gap-2 max-w-full">
+                                <h2 class="text-2xl md:text-3xl font-bold text-gray-100 group-hover:text-daw-accent transition-colors truncate" v-if="currentSong">
+                                    {{ currentSong.title }}
+                                </h2>
+                                <h2 class="text-2xl md:text-3xl font-bold text-gray-500 transition-colors truncate" v-else>
+                                    Sélectionner un morceau
+                                </h2>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500 group-hover:text-daw-accent flex-shrink-0"><path d="m6 9 6 6 6-6"/></svg>
+                            </div>
+                            <div class="text-sm text-gray-400 truncate mt-1 group-hover:text-gray-300 transition-colors" v-if="currentSong && currentSong.artist">
+                                {{ currentSong.artist }}
+                            </div>
+                        </button>
                     </div>
 
                     <div class="flex justify-center items-center gap-4 sm:gap-6 flex-1">
