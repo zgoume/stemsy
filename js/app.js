@@ -202,13 +202,17 @@ class MultitrackEngine {
     }
 }
 
-const { createApp, ref, computed, onMounted } = Vue;
+const { createApp, ref, computed, onMounted, watch } = Vue;
 
 const IconPlay = { template: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>` };
 const IconPause = { template: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>` };
 const IconStop = { template: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>` };
 const IconSkipBack = { template: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="19 20 9 12 19 4 19 20"></polygon><line x1="5" y1="19" x2="5" y2="5"></line></svg>` };
 const IconSkipForward = { template: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>` };
+const IconMenu = { template: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>` };
+const IconClose = { template: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>` };
+const IconBack = { template: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>` };
+const IconChevronRight = { template: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>` };
 
 const formatTime = (seconds) => {
     if (isNaN(seconds) || seconds < 0) return "00:00";
@@ -218,7 +222,7 @@ const formatTime = (seconds) => {
 };
 
 const app = createApp({
-    components: { IconPlay, IconPause, IconStop, IconSkipBack, IconSkipForward },
+    components: { IconPlay, IconPause, IconStop, IconSkipBack, IconSkipForward, IconMenu, IconClose, IconBack, IconChevronRight },
     setup() {
         const playlistsList = ref([]);
         const currentSetlist = ref(null);
@@ -236,7 +240,25 @@ const app = createApp({
 
         let engine = null;
         
-        const autoNext = ref(false);
+        const autoNext = ref(localStorage.getItem('stemsy_autoNext') === 'true');
+        const showVuMeters = ref(localStorage.getItem('stemsy_showVuMeters') !== 'false');
+        
+        watch(autoNext, (val) => {
+            localStorage.setItem('stemsy_autoNext', val);
+        });
+        
+        watch(showVuMeters, (val) => {
+            localStorage.setItem('stemsy_showVuMeters', val);
+        });
+
+        const showMenu = ref(false);
+        const activeTab = ref('main');
+        const trackSettings = ref({});
+
+        const openMenu = (tab = 'main') => {
+            activeTab.value = tab;
+            showMenu.value = true;
+        };
 
         const initEngine = () => {
             if (!engine) {
@@ -258,6 +280,7 @@ const app = createApp({
                         }
                     },
                     (levels) => {
+                        if (!showVuMeters.value) return;
                         engineTracks.value.forEach((track, i) => {
                             track.level = levels[i];
                         });
@@ -293,6 +316,10 @@ const app = createApp({
                 const res = await fetch(`playlists/${file}`);
                 if(!res.ok) throw new Error("Fichier playlist non trouvé");
                 const data = await res.json();
+                
+                // Réinitialiser les réglages conservés lors d'un changement de playlist
+                trackSettings.value = {};
+                
                 currentSetlist.value = data;
                 if (data.songs && data.songs.length > 0) {
                     await loadSong(0);
@@ -307,10 +334,15 @@ const app = createApp({
             }
         };
 
-        const onPlaylistChange = (e) => {
-            const file = e.target.value;
+        const selectPlaylist = (file) => {
             selectedPlaylistFile.value = file;
             loadPlaylist(file);
+            activeTab.value = 'songs'; // Basculer sur les morceaux après choix de la setlist
+        };
+
+        const selectSong = (index) => {
+            loadSong(index);
+            showMenu.value = false;
         };
 
         const loadSong = async (index) => {
@@ -332,6 +364,16 @@ const app = createApp({
             });
             
             duration.value = engine.duration;
+            
+            // Appliquer les réglages sauvegardés s'ils existent
+            engine.tracks.forEach(t => {
+                if (trackSettings.value[t.id]) {
+                    t.volume = trackSettings.value[t.id].volume;
+                    t.mute = trackSettings.value[t.id].mute;
+                    t.solo = trackSettings.value[t.id].solo;
+                }
+            });
+            engine.updateMuteSolo();
             
             engineTracks.value = engine.tracks.map(t => ({
                 id: t.id,
@@ -387,11 +429,20 @@ const app = createApp({
             currentTime.value = targetTime;
         };
 
+        const saveTrackSettings = (track) => {
+            trackSettings.value[track.id] = {
+                volume: track.volume,
+                mute: track.mute,
+                solo: track.solo
+            };
+        };
+
         const setVolume = (id, vol) => {
             const track = engineTracks.value.find(t => t.id === id);
             if (track) {
                 const numVol = parseFloat(vol);
                 track.volume = numVol;
+                saveTrackSettings(track);
                 if(engine) engine.setVolume(id, numVol);
             }
         };
@@ -400,6 +451,7 @@ const app = createApp({
             const track = engineTracks.value.find(t => t.id === id);
             if (track) {
                 track.mute = !track.mute;
+                saveTrackSettings(track);
                 if(engine) engine.setMute(id, track.mute);
             }
         };
@@ -408,6 +460,7 @@ const app = createApp({
             const track = engineTracks.value.find(t => t.id === id);
             if (track) {
                 track.solo = !track.solo;
+                saveTrackSettings(track);
                 if(engine) engine.setSolo(id, track.solo);
             }
         };
@@ -445,38 +498,45 @@ const app = createApp({
             formatTime,
             playlistsList,
             selectedPlaylistFile,
-            onPlaylistChange,
+            selectPlaylist,
+            selectSong,
             currentSetlist,
             currentSongIndex,
             loadSong,
-            autoNext
+            autoNext,
+            showVuMeters,
+            showMenu,
+            activeTab,
+            openMenu
         };
     },
     template: `
         <div class="flex-1 flex flex-col h-full bg-daw-bg">
             <header class="bg-daw-panel border-b border-daw-border p-3 shadow-md z-10 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-start">
-                    <h1 class="text-xl font-bold tracking-wider text-daw-accent">STEMSY</h1>
-                    
-                    <select v-model="selectedPlaylistFile" @change="onPlaylistChange" class="bg-gray-800 text-gray-200 border border-gray-600 text-sm rounded focus:ring-daw-accent focus:border-daw-accent block p-2 outline-none cursor-pointer max-w-[150px] sm:max-w-xs">
-                        <option v-for="pl in playlistsList" :key="pl.id" :value="pl.file">{{ pl.name }}</option>
-                    </select>
+                    <div class="flex items-center gap-2 md:gap-4">
+                        <button @click="openMenu('main')" class="p-2 text-gray-400 hover:text-white rounded hover:bg-gray-700 transition-colors">
+                            <IconMenu />
+                        </button>
+                        <img src="icons/logo.svg" alt="Stemsy Logo" class="h-8 md:h-10 object-contain" />
+                    </div>
                 </div>
                 
-                <div class="flex flex-col items-center sm:items-end w-full sm:w-auto">
-                    <select v-if="currentSetlist" v-model="currentSongIndex" @change="e => loadSong(parseInt(e.target.value))" class="bg-gray-800 text-gray-200 border border-gray-600 text-sm rounded focus:ring-daw-accent focus:border-daw-accent block p-2 outline-none cursor-pointer mb-1 w-full max-w-[250px] sm:max-w-xs">
-                        <option v-for="(song, idx) in currentSetlist.songs" :key="song.id" :value="idx">
-                            {{ song.title }} <template v-if="song.artist">- {{ song.artist }}</template>
-                        </option>
-                    </select>
-                    <div class="text-xs text-gray-500" v-if="currentSetlist">
+                <div class="flex flex-col items-center sm:items-end w-full sm:w-auto mt-2 sm:mt-0">
+                    <button @click="openMenu('songs')" class="text-daw-accent hover:text-white font-bold text-lg md:text-xl truncate max-w-[250px] sm:max-w-xs transition-colors flex items-center gap-2">
+                        <span v-if="currentSong">{{ currentSong.title }}</span>
+                        <span v-else>Sélectionner un morceau</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div class="text-xs text-gray-500 mt-1" v-if="currentSetlist">
                         Piste {{ currentSongIndex + 1 }} sur {{ currentSetlist.songs.length }}
                     </div>
                 </div>
             </header>
 
             <div v-if="loading" class="absolute inset-0 z-50 bg-daw-bg/90 backdrop-blur-sm flex flex-col items-center justify-center">
-                <div class="w-16 h-16 border-4 border-gray-600 border-t-daw-accent rounded-full animate-spin mb-4"></div>
+                <img src="icons/logo.svg" alt="Stemsy Logo" class="w-36 h-36 md:w-48 md:h-48 object-contain mb-8 animate-pulse drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]" />
+                <div class="w-12 h-12 border-4 border-gray-600 border-t-daw-accent rounded-full animate-spin mb-4"></div>
                 <div class="text-xl font-bold text-gray-200">Chargement des stems... {{ loadingProgress }}%</div>
             </div>
 
@@ -507,7 +567,7 @@ const app = createApp({
                         <span class="text-xs text-gray-500 font-mono w-8">100%</span>
                     </div>
 
-                    <div class="relative w-3 md:w-4 h-12 md:h-16 bg-gray-900 rounded flex-shrink-0 led-mask overflow-hidden mx-auto hidden sm:block">
+                    <div v-if="showVuMeters" class="relative w-3 md:w-4 h-12 md:h-16 bg-gray-900 rounded flex-shrink-0 led-mask overflow-hidden mx-auto hidden sm:block">
                         <div class="absolute inset-0 led-bar opacity-20"></div>
                         <div class="absolute bottom-0 left-0 w-full overflow-hidden transition-all duration-75" :style="{ height: Math.min(100, track.level * 130) + '%' }">
                             <div class="absolute bottom-0 left-0 w-full h-12 md:h-16 led-bar"></div>
@@ -537,10 +597,6 @@ const app = createApp({
                         <div class="text-sm text-gray-400 truncate mt-1" v-if="currentSong && currentSong.artist">
                             {{ currentSong.artist }}
                         </div>
-                        <div class="mt-2 flex items-center justify-center md:justify-start gap-2">
-                            <input type="checkbox" id="autoNext" v-model="autoNext" class="w-4 h-4 rounded bg-gray-800 border-gray-600 text-daw-accent focus:ring-daw-accent cursor-pointer">
-                            <label for="autoNext" class="text-sm text-gray-400 cursor-pointer select-none">Enchaîner auto.</label>
-                        </div>
                     </div>
 
                     <div class="flex justify-center items-center gap-4 sm:gap-6 flex-1">
@@ -567,6 +623,122 @@ const app = createApp({
                     </div>
                 </div>
             </footer>
+
+            <!-- Menu Overlay -->
+            <div v-if="showMenu" class="absolute inset-0 z-[100] flex">
+                <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showMenu = false"></div>
+                
+                <div class="relative w-80 max-w-[80%] h-full bg-daw-panel border-r border-daw-border flex flex-col shadow-2xl transform transition-transform duration-300">
+                    <div class="flex items-center justify-between p-4 border-b border-daw-border bg-gray-900">
+                        <div class="flex items-center gap-3">
+                            <button v-if="activeTab !== 'main'" @click="activeTab = 'main'" class="p-1.5 text-gray-400 hover:text-white rounded hover:bg-gray-700 transition-colors">
+                                <IconBack />
+                            </button>
+                            <h2 class="text-lg font-bold text-gray-100 flex-1 truncate">
+                                <template v-if="activeTab === 'main'">Menu</template>
+                                <template v-else-if="activeTab === 'songs'">Morceaux</template>
+                                <template v-else-if="activeTab === 'playlists'">Setlists</template>
+                                <template v-else-if="activeTab === 'options'">Options</template>
+                                <template v-else-if="activeTab === 'about'">À propos</template>
+                            </h2>
+                        </div>
+                        <button @click="showMenu = false" class="p-2 text-gray-400 hover:text-white rounded hover:bg-gray-700 transition-colors">
+                            <IconClose />
+                        </button>
+                    </div>
+
+                    <div class="flex-1 overflow-y-auto p-4 sm:p-6">
+                        <!-- Main Menu Listing -->
+                        <div v-if="activeTab === 'main'" class="space-y-3">
+                            <button @click="activeTab = 'songs'" class="w-full text-left p-4 rounded-lg bg-gray-800 border border-gray-700 text-gray-200 hover:bg-gray-700 hover:border-gray-500 font-bold text-lg transition-all flex items-center justify-between">
+                                Morceaux
+                                <IconChevronRight class="text-gray-500" />
+                            </button>
+                            <button @click="activeTab = 'playlists'" class="w-full text-left p-4 rounded-lg bg-gray-800 border border-gray-700 text-gray-200 hover:bg-gray-700 hover:border-gray-500 font-bold text-lg transition-all flex items-center justify-between">
+                                Setlists
+                                <IconChevronRight class="text-gray-500" />
+                            </button>
+                            <button @click="activeTab = 'options'" class="w-full text-left p-4 rounded-lg bg-gray-800 border border-gray-700 text-gray-200 hover:bg-gray-700 hover:border-gray-500 font-bold text-lg transition-all flex items-center justify-between">
+                                Options
+                                <IconChevronRight class="text-gray-500" />
+                            </button>
+                            <button @click="activeTab = 'about'" class="w-full text-left p-4 rounded-lg bg-gray-800 border border-gray-700 text-gray-200 hover:bg-gray-700 hover:border-gray-500 font-bold text-lg transition-all flex items-center justify-between">
+                                À propos
+                                <IconChevronRight class="text-gray-500" />
+                            </button>
+                        </div>
+
+                        <!-- Sub Views -->
+                        <div v-if="activeTab === 'songs'" class="space-y-2">
+                            <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4" v-if="currentSetlist">{{ currentSetlist.name }}</h3>
+                            <div v-if="!currentSetlist" class="text-gray-500 text-sm">Aucune setlist chargée.</div>
+                            
+                            <button 
+                                v-for="(song, idx) in currentSetlist?.songs || []" 
+                                :key="song.id" 
+                                @click="selectSong(idx)"
+                                :class="[
+                                    'w-full text-left p-3 rounded-lg border transition-all duration-200 flex flex-col', 
+                                    currentSongIndex === idx 
+                                        ? 'bg-daw-accent/20 border-daw-accent text-white' 
+                                        : 'bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700 hover:border-gray-500'
+                                ]"
+                            >
+                                <div class="font-bold text-sm">{{ idx + 1 }}. {{ song.title }}</div>
+                                <div class="text-xs text-gray-500 mt-1" v-if="song.artist">{{ song.artist }}</div>
+                            </button>
+                        </div>
+
+                        <div v-if="activeTab === 'playlists'" class="space-y-3">
+                            <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4">Choisir une Setlist</h3>
+                            <button 
+                                v-for="pl in playlistsList" 
+                                :key="pl.id" 
+                                @click="selectPlaylist(pl.file)"
+                                :class="[
+                                    'w-full text-left p-4 rounded-lg border transition-all duration-200', 
+                                    selectedPlaylistFile === pl.file 
+                                        ? 'bg-daw-accent/10 border-daw-accent text-white' 
+                                        : 'bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700 hover:border-gray-500'
+                                ]"
+                            >
+                                <div class="font-bold text-lg">{{ pl.name }}</div>
+                            </button>
+                        </div>
+
+                        <div v-if="activeTab === 'options'" class="space-y-8">
+                            <div class="space-y-4">
+                                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider">Lecture</h3>
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="checkbox" v-model="autoNext" class="w-5 h-5 rounded bg-gray-800 border-gray-600 text-daw-accent focus:ring-daw-accent cursor-pointer">
+                                    <span class="text-gray-300 select-none text-sm">Enchaîner automatiquement</span>
+                                </label>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider">Interface</h3>
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="checkbox" v-model="showVuMeters" class="w-5 h-5 rounded bg-gray-800 border-gray-600 text-daw-accent focus:ring-daw-accent cursor-pointer">
+                                    <span class="text-gray-300 select-none text-sm">Afficher les Vu-mètres</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div v-if="activeTab === 'about'" class="space-y-4 text-gray-300 text-sm leading-relaxed">
+                            <div class="flex flex-col items-center justify-center mb-6 mt-2">
+                                <img src="icons/logo.svg" alt="Stemsy Logo" class="w-40 h-40 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]" />
+                            </div>
+                            <p><strong>Stemsy</strong> est un lecteur audio multipiste conçu pour les musiciens en répétition et en live.</p>
+                            <p>Il utilise l'API <em>Web Audio</em> pour garantir une synchronisation parfaite au bit près entre toutes les pistes (clic, basse, séquences, etc.).</p>
+                            <p>L'interface de type "DAW" permet de gérer les volumes, muter ou isoler des pistes individuellement, afin de s'adapter aux besoins de chaque musicien (ex: couper la batterie pour faire jouer le vrai batteur).</p>
+                            <div class="mt-8 pt-4 border-t border-gray-700 text-center text-gray-500 text-xs">
+                                Version 1.0<br>
+                                Conçu comme PWA
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     `
 });

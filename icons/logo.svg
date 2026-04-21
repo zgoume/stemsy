@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 100">
+  <defs>
+    <linearGradient id="stemGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4F46E5; stop-opacity:1" /> <stop offset="100%" style="stop-color:#9333EA; stop-opacity:1" /> </linearGradient>
+  </defs>
+
+  <g transform="translate(10, 10)">
+    <rect x="0" y="25" width="12" height="30" rx="6" fill="#D1D5DB"/>
+    <rect x="20" y="10" width="12" height="60" rx="6" fill="url(#stemGradient)"/>
+    <rect x="40" y="0" width="12" height="80" rx="6" fill="url(#stemGradient)"/>
+    <rect x="60" y="15" width="12" height="50" rx="6" fill="url(#stemGradient)"/>
+  </g>
+
+  <text x="100" y="65" font-family="Verdana, sans-serif" font-size="56" font-weight="bold" fill="#3b82f6">
+    Stemsy
+  </text>
+  
+  </svg>

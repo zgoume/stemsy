@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  stemsy:
+    build: .
+    container_name: stemsy_app
+    ports:
+      - "8000:80"
+    volumes:
+      # Montage du dossier local ./playlists vers le répertoire playlists du conteneur Nginx.
+      # Toute modification de ce dossier en local sera répercutée en temps réel dans l'application.
+      - ./playlists:/usr/share/nginx/html/playlists
+    restart: unless-stopped

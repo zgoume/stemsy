@@ -1,12 +1,12 @@
 [
     {
         "id": "hd-live",
-        "name": "HD Live",
+        "name": "Hypnotic Drive Live",
         "file": "hd.json"
     },
     {
         "id": "playlist-2",
-        "name": "Setlist Rock (Vide)",
-        "file": "rock.json"
+        "name": "Fishermans Friends Live",
+        "file": "ff.json"
     }
 ]
